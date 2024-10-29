@@ -1,5 +1,0 @@
-vim.cmd("tabstop=2")
-vim.cmd("set number")
-vim.cmd("set relativenumber")
-vim.cmd("set expandtab")
-vim.keymap.set('n','<A-t>',':vsplit term')
