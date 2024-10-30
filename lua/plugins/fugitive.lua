@@ -2,7 +2,7 @@ return {
   "tpope/vim-fugitive",
   cmd={"G","Git"},
   keys={
-    {"<leader>gps",":Git push",desc="Make a Git push"},
-    {"<leader>gpl",":Git pull",desc="Make a Git pull"},
+    {"<leader>gs",":Git push",desc="Make a Git push"},
+    {"<leader>gl",":Git pull",desc="Make a Git pull"},
   }
 }
