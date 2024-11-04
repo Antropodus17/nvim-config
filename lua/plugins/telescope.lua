@@ -1,12 +1,102 @@
 return {
     "nvim-telescope/telescope.nvim",
-    dependencies = {
-        "nvim-lua/plenary.nvim"
+    event="VeryLazy",
+    dependencies={
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope-file-browser.nvim",
+        {
+            'nvim-telescopr/telescope-fzf-native.nvim',
+            build ='make'
+        }
     },
-    config = function()
-        vim.keymap.set('n', '<leader>ff', "telescope.find_files", { desc = 'Telescope find files' })
-        vim.keymap.set('n', '<leader>fg', "telescopel.ive_grep", { desc = 'Telescope live grep' })
-        vim.keymap.set('n', '<leader>fb', "telescope.buffers", { desc = 'Telescope buffers' })
-        vim.keymap.set('n', '<leader>fh', "telescope.help_tags", { desc = 'Telescope help tags' })
+    opts={
+        extensions= {
+            fzf={
+                fuzzy =true,
+                override_generic_sorter=true,
+                override_file_sorter=true,
+                case_mode="smart_case",
+            },
+        }
+    },
+    config=function(opts)
+        require('telescope').setup(opts)
+        require('telescope').load_extension('fzf')
     end,
+    keys={
+        {
+            "<leader>pp",
+            function()
+                require('telescope.builtin').git_files({show_untracked=true})
+            end,
+            desc = "Telescope Git File",
+        },
+        {
+            "<leader>pe",
+            function()
+                require("telescope.builtin").buffers()
+            end,
+            desc="Telescope buffers",
+        },
+        {
+            "<leader>gs",function()
+                require('telescope.builtin').git_status()
+            end,
+            desc="Telescope Git status",
+        },
+        {
+            "<leader>gc",
+            function()
+                require("telescope.builtin").git_bcommits()
+            end,
+            desc="Telescope Git status",
+        },
+        {
+            "<leader>gb",
+            function()
+                require("telescope.builtin").git_branches()
+            end,
+            desc="Telescope Git branches",
+        },
+        {
+            "<leader>rp",
+            function()
+                require("telescope.builtin").fid_files({
+                    prompt_title="Plugins",
+                    cwd="~/.config/nvim/lua/plugins",
+                    attach_mappings=function(_,map)
+                        local actions= require("telescope.actions")
+                        local action_state=require("telescope.actions.state")
+                        map("i","<c-y",function(prompt_bfnr)
+                            local new_plugin=action_state.get_current_line()
+                            actions.close(prompt_bfnr)
+                            vim.cmd(string.format("edit ~/.config/nvim/lua/plugins/%s.lua",new_plugin))
+                        end)
+                        return true
+                    end
+                })
+            end
+        },
+        {
+            "<leader>pf",
+            function()
+                require("telescope.builtin").find_files()
+            end,
+            desc="Telescope Find Files",
+        },
+        {
+            "<leader>ph",
+            function()
+                require("telescope.builtin").help_tags()
+            end,
+            desc="Telescope Help"
+        },
+        {
+            "<leader>bb",
+            function()
+                require("telescope").extensions.file_browser.file_browser({path="%:h:p",select_buffer=true})
+            end,
+            desc="Telescope file browser"
+        }
+    },
 }
