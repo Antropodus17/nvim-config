@@ -13,6 +13,7 @@ return {
       "php",
       "java",
       "python",
+        "javascript",
     },
     highligth={
       enable=true,

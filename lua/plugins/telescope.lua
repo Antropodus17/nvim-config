@@ -5,7 +5,7 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-file-browser.nvim",
         {
-            'nvim-telescopr/telescope-fzf-native.nvim',
+            'nvim-telescope/telescope-fzf-native.nvim',
             build ='make'
         }
     },
@@ -61,13 +61,13 @@ return {
         {
             "<leader>rp",
             function()
-                require("telescope.builtin").fid_files({
+                require("telescope.builtin").find_files({
                     prompt_title="Plugins",
                     cwd="~/.config/nvim/lua/plugins",
                     attach_mappings=function(_,map)
                         local actions= require("telescope.actions")
                         local action_state=require("telescope.actions.state")
-                        map("i","<c-y",function(prompt_bfnr)
+                        map("i","<c>-y",function(prompt_bfnr)
                             local new_plugin=action_state.get_current_line()
                             actions.close(prompt_bfnr)
                             vim.cmd(string.format("edit ~/.config/nvim/lua/plugins/%s.lua",new_plugin))

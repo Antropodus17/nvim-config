@@ -1,0 +1,3 @@
+return {
+    "garbas/vim-snipmate"
+}
