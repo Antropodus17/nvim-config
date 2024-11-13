@@ -6,7 +6,7 @@ return {
     },
     config = function()
         local on_attach = function(_, bufnr)
-          --vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+            --vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
             local opts = { buffer = bufnr }
             vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -33,8 +33,40 @@ return {
                 Lua = {
                     telemetry = { enable = false },
                     workspace = { checkThirdParty = false },
-                }
+                },
+
             }
+        })
+        require("lspconfig").biome.setup({
+            default_config = {
+                cmd = { 'biome', 'lsp-proxy' },
+                filetypes = {
+                    'astro',
+                    'css',
+                    'graphql',
+                    'javascript',
+                    'javascriptreact',
+                    'json',
+                    'jsonc',
+                    'svelte',
+                    'typescript',
+                    'typescript.tsx',
+                    'typescriptreact',
+                    'vue',
+                },
+                single_file_support = false,
+            },
+            docs = {
+                description = [[
+https://biomejs.dev
+
+Toolchain of the web. [Successor of Rome](https://biomejs.dev/blog/annoucing-biome).
+
+```sh
+npm install [-g] @biomejs/biome
+```
+]],
+            },
         })
     end
 }
