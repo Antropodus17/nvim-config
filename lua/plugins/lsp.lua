@@ -6,7 +6,7 @@ return {
     },
     config = function()
         local on_attach = function(_, bufnr)
-          --vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+            --vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
             local opts = { buffer = bufnr }
             vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
             vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
